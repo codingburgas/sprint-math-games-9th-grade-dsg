@@ -1,55 +1,50 @@
 #include "raylib.h"
-#include "resource_dir.h"	// for SearchAndSetResourceDir
-#include <algorithm>
-using namespace std;
+#include "intro.h"
 
 int main()
 {
-	const int gameWidth = 1920;
-	const int gameHeight = 1080;
-	float scale;
+	//SetConfigFlags(FLAG_FULLSCREEN_MODE);
+	InitWindow(GetScreenWidth(), GetScreenHeight(), "Parolino");
+	ChangeDirectory("resources"); // for easier access to resources
 
-	SetConfigFlags(FLAG_WINDOW_RESIZABLE | FLAG_WINDOW_HIGHDPI);
-	InitWindow(gameWidth, gameHeight, "Parolino");
+	int level = 0;
 
-	// Allows the game to respond to the window resizing
-	RenderTexture2D target = LoadRenderTexture(gameWidth, gameHeight);
-	SetTextureFilter(target.texture, TEXTURE_FILTER_BILINEAR);
+	Vector2 titleSize = MeasureTextEx(GetFontDefault(), "Parolino", 160.0f, 80.0f);
+	Vector2 titlePosition = Vector2{(GetScreenWidth() - titleSize.x) / 2, 220.0f};
 
 	SetTargetFPS(60);
 
+	playIntro();
 	// Game loop
-	while (!WindowShouldClose())	// run the loop until the user presses ESCAPE or presses the Close button on the window
+	while (!WindowShouldClose()) // Run the loop until the user presses ESCAPE or presses the Close button on the window
 	{
-		scale = min((float)GetScreenWidth() / gameWidth, (float)GetScreenHeight() / gameHeight);
+		// Update variables
+		switch (level)
+		{
+		case 0: // Main menu
 
-		// Draw everything in the render texture
-		BeginTextureMode(target);
-			ClearBackground(Color{217, 253, 255, 255});
+			break;
 
-			// Title
-			DrawText("Parolino", gameWidth / 2 - MeasureText("Parolino", 64) / 2, 200, 64, Color{0, 20, 8, 255});
+		case 1:
 
-		EndTextureMode();
+			break;
+		}
 
-		// Draw finished render texture
 		BeginDrawing();
-			ClearBackground(BLACK);
+			switch (level)
+			{
+			case 0: // Main menu
+				ClearBackground(Color{217, 255, 224, 255});
+				DrawTextEx(GetFontDefault(), "Parolino", titlePosition, 160.0f, 80.0f, BLACK);
+				break;
 
-			DrawTexturePro(
-				target.texture,
-				Rectangle{0.0, 0.0, (float)target.texture.width, (float)-target.texture.height},
-				Rectangle{(GetScreenWidth() - ((float)gameWidth * scale)) * 0.5f, (GetScreenHeight() - ((float)gameHeight * scale)) * 0.5f, gameWidth * scale, gameHeight * scale},
-				Vector2{0, 0},
-				0.0f,
-				WHITE
-			);
+			case 1:
 
+				break;
+			}
 		EndDrawing();
 	}
 
-	UnloadRenderTexture(target);
-
-	// destory the window and cleanup the OpenGL context
+	// Destory the window and clean up the OpenGL context
 	CloseWindow();
 }
