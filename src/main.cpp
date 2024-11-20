@@ -1,16 +1,30 @@
 #include "raylib.h"
 #include "intro.h"
+#include "font.h"
+
+enum Screen
+{
+	after_intro,
+	menu,
+	options,
+	help,
+	level
+};
 
 int main()
 {
 	//SetConfigFlags(FLAG_FULLSCREEN_MODE);
 	InitWindow(GetScreenWidth(), GetScreenHeight(), "Parolino");
-	ChangeDirectory("resources"); // for easier access to resources
+	ChangeDirectory("resources"); // to not prefix every resource with "resources/"
 
+	const Vector2 title_position = Vector2{(GetScreenWidth() - MeasureTextEx(GetFontDefault(), "Parolino", title_size, title_spacing).x) / 2, 220.0f};
+	const Vector2 play_button_position = Vector2{(GetScreenWidth() - MeasureTextEx(GetFontDefault(), "Play", text_size, text_spacing).x) / 2, 600.0f};
+
+	Screen currentScreen = after_intro;
 	int level = 0;
 
-	Vector2 titleSize = MeasureTextEx(GetFontDefault(), "Parolino", 160.0f, 80.0f);
-	Vector2 titlePosition = Vector2{(GetScreenWidth() - titleSize.x) / 2, 220.0f};
+	int frame = 0;
+	float alpha = 0.0f;
 
 	SetTargetFPS(60);
 
@@ -19,28 +33,41 @@ int main()
 	while (!WindowShouldClose()) // Run the loop until the user presses ESCAPE or presses the Close button on the window
 	{
 		// Update variables
-		switch (level)
+		switch (currentScreen)
 		{
-		case 0: // Main menu
+			// Fade in after intro plays
+			case after_intro:
+				frame++;
+				alpha += 0.1f;
+				if (frame >= 70)
+				{
+					currentScreen = menu;
+				}
+				break;
 
-			break;
+			case menu:
+				
+				break;
 
-		case 1:
+			case options:
 
-			break;
+				break;
 		}
 
+		// Draw the UI
 		BeginDrawing();
-			switch (level)
+			switch (currentScreen)
 			{
-			case 0: // Main menu
-				ClearBackground(Color{217, 255, 224, 255});
-				DrawTextEx(GetFontDefault(), "Parolino", titlePosition, 160.0f, 80.0f, BLACK);
-				break;
+				case after_intro:
+				case menu:
+					ClearBackground(Color{217, 255, 224, 255});
+					DrawTextEx(GetFontDefault(), "Parolino", title_position, title_size, title_spacing, Fade(BLACK, alpha));
+					DrawTextEx(GetFontDefault(), "Play", play_button_position, text_size, text_spacing, Fade(BLACK, alpha));
+					break;
 
-			case 1:
+				case options:
 
-				break;
+					break;
 			}
 		EndDrawing();
 	}
