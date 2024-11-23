@@ -13,8 +13,8 @@ enum Screen
 
 int main()
 {
-	//SetConfigFlags(FLAG_FULLSCREEN_MODE);
-	InitWindow(GetScreenWidth(), GetScreenHeight(), "Parolino");
+	SetConfigFlags(FLAG_FULLSCREEN_MODE);
+	InitWindow(0, 0, "Parolino");
 	ChangeDirectory("resources"); // to not prefix every resource with "resources/"
 
 	const Vector2 title_position = Vector2{(GetScreenWidth() - MeasureTextEx(GetFontDefault(), "Parolino", title_size, title_spacing).x) / 2, 220.0f};
