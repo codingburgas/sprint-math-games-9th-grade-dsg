@@ -5,8 +5,9 @@
 void playIntro()
 {
 	int frame = 0;
-
-	Vector2 fieldSize = MeasureTextEx(GetFontDefault(), "********", title_size, title_spacing);
+	// Codepoints are set to nullptr, and codepointCount is set to 0, just so the font is applied to default characters
+	const Font font = LoadFontEx("bBreakPassword.ttf", title_size, nullptr, 0);
+	Vector2 fieldSize = MeasureTextEx(font, "********", title_size, title_spacing); 
 	// Add padding
 	constexpr float x_padding = 200.0f;
 	constexpr float y_padding = 50.0f;
@@ -52,35 +53,35 @@ void playIntro()
 
 			if (frame >= 145)
 			{
-				DrawTextEx(GetFontDefault(), "********", password_position, title_size, title_spacing, Fade(BLACK, alpha));
+				DrawTextEx(font, "********", password_position, title_size, title_spacing, Fade(BLACK, alpha));
 			}
 			else if (frame >= 120)
 			{
-				DrawTextEx(GetFontDefault(), "*******", password_position, title_size, title_spacing, BLACK);
+				DrawTextEx(font, "*******", password_position, title_size, title_spacing, BLACK);
 			}
 			else if (frame >= 115)
 			{
-				DrawTextEx(GetFontDefault(), "******", password_position, title_size, title_spacing, BLACK);
+				DrawTextEx(font, "******", password_position, title_size, title_spacing, BLACK);
 			}
 			else if (frame >= 110)
 			{
-				DrawTextEx(GetFontDefault(), "*****", password_position, title_size, title_spacing, BLACK);
+				DrawTextEx(font, "*****", password_position, title_size, title_spacing, BLACK);
 			}
 			else if (frame >= 100)
 			{
-				DrawTextEx(GetFontDefault(), "****", password_position, title_size, title_spacing, BLACK);
+				DrawTextEx(font, "****", password_position, title_size, title_spacing, BLACK);
 			}
 			else if (frame >= 85)
 			{
-				DrawTextEx(GetFontDefault(), "***", password_position, title_size, title_spacing, BLACK);
+				DrawTextEx(font, "***", password_position, title_size, title_spacing, BLACK);
 			}
 			else if (frame >= 75)
 			{
-				DrawTextEx(GetFontDefault(), "**", password_position, title_size, title_spacing, BLACK);
+				DrawTextEx(font, "**", password_position, title_size, title_spacing, BLACK);
 			}
 			else if (frame >= 60)
 			{
-				DrawTextEx(GetFontDefault(), "*", password_position, title_size, title_spacing, BLACK);
+				DrawTextEx(font, "*", password_position, title_size, title_spacing, BLACK);
 			}
 		EndDrawing();
 	}

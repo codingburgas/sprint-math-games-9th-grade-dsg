@@ -17,8 +17,11 @@ int main()
 	InitWindow(0, 0, "Parolino");
 	ChangeDirectory("resources"); // to not prefix every resource with "resources/"
 
-	const Vector2 title_position = Vector2{(GetScreenWidth() - MeasureTextEx(GetFontDefault(), "Parolino", title_size, title_spacing).x) / 2, 220.0f};
-	const Vector2 play_button_position = Vector2{(GetScreenWidth() - MeasureTextEx(GetFontDefault(), "Play", text_size, text_spacing).x) / 2, 600.0f};
+	// Codepoints are set to nullptr, and codepointCount is set to 0, just so the font is applied to default characters
+	const Font title_font = LoadFontEx("bBreakPassword.ttf", title_size, nullptr, 0);
+	const Font text_font = LoadFontEx("bBreakPassword.ttf", text_size, nullptr, 0);
+	const Vector2 title_position = Vector2{(GetScreenWidth() - MeasureTextEx(title_font, "Parolino", title_size, title_spacing).x) / 2, 220.0f};
+	const Vector2 play_button_position = Vector2{(GetScreenWidth() - MeasureTextEx(text_font, "Play", text_size, text_spacing).x) / 2, 600.0f};
 
 	Screen currentScreen = after_intro;
 	int level = 0;
@@ -61,8 +64,8 @@ int main()
 				case after_intro:
 				case menu:
 					ClearBackground(Color{217, 255, 224, 255});
-					DrawTextEx(GetFontDefault(), "Parolino", title_position, title_size, title_spacing, Fade(BLACK, alpha));
-					DrawTextEx(GetFontDefault(), "Play", play_button_position, text_size, text_spacing, Fade(BLACK, alpha));
+					DrawTextEx(title_font, "Parolino", title_position, title_size, title_spacing, Fade(BLACK, alpha));
+					DrawTextEx(text_font, "Play", play_button_position, text_size, text_spacing, Fade(BLACK, alpha));
 					break;
 
 				case options:
@@ -72,6 +75,6 @@ int main()
 		EndDrawing();
 	}
 
-	// Destory the window and clean up the OpenGL context
+	// Destroy the window and clean up the OpenGL context
 	CloseWindow();
 }
