@@ -2,12 +2,12 @@
 # Team DSG
 
 <h3><p>Dimitar Harizanov - Scrum Trainer</p></h3>
-<h3><p>Mark Stoqnov - Back-end Developer</p></h3>
-<h3><p>Presiqn Tanchef - Designer</p></h3>
-<h3><p>Kristiqn Parashkevof- Front-end Developer</p></h3>
+<h3><p>Mark Stoyanov - Back-end Developer</p></h3>
+<h3><p>Presiyan Tanchev - Designer</p></h3>
+<h3><p>Kristiyan Parashkevov- Front-end Developer</p></h3>
 
 # About Parolino
-<h3><p> Our game Parolino is a password guessing. For this project we used C++ as a programming language.</p></h3>    
+<h3><p> Our game Parolino is about password guessing. For this project we used C++ as a programming language.</p></h3>    
 
 # 📄 Documentation
 <h3> <a href="https://github.com/codingburgas/sprint-math-games-9th-grade-dsg/Documentation/Parolino.pptx">Presentation</h3>
@@ -15,7 +15,7 @@
 
 
 <h1> Used Technologies</h1>
-<h3> Used code editor & collaborative service:</h3> 
+<h3> Used code editor & collaborative services:</h3> 
 <p >
   <p>
     <img src="graphics/vscode-1.png" alt="Visual Studio Code" width=48px>
