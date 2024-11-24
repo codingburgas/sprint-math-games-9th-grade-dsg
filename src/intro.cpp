@@ -4,10 +4,9 @@
 
 void playIntro()
 {
-	int frame = 0;
-	// Codepoints are set to nullptr, and codepointCount is set to 0, just so the font is applied to default characters
+	// Codepoints are null and codepointCount - 0 so the font applies to default characters
 	const Font font = LoadFontEx("bBreakPassword.ttf", title_size, nullptr, 0);
-	Vector2 fieldSize = MeasureTextEx(font, "********", title_size, title_spacing); 
+	Vector2 fieldSize = MeasureTextEx(font, "********", title_size, title_spacing);
 	// Add padding
 	constexpr float x_padding = 200.0f;
 	constexpr float y_padding = 50.0f;
@@ -17,6 +16,7 @@ void playIntro()
 
 	const Vector2 password_position = Vector2{(GetScreenWidth() - fieldSize.x) / 2 + x_padding / 2, top_margin + y_padding / 2};
 
+	int frame = 0;
 	float alpha = 1.0f;
 
 	while (!WindowShouldClose() && !GetKeyPressed() && !IsMouseButtonReleased(MOUSE_BUTTON_LEFT) && frame < 290) // Skip intro with mouse click or key press
@@ -85,4 +85,5 @@ void playIntro()
 			}
 		EndDrawing();
 	}
+	UnloadFont(font);
 }
