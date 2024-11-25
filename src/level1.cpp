@@ -20,28 +20,6 @@ LevelEnd level1()
 		GetScreenHeight() - window_y_padding,
 	};
 
-	const Rectangle win_menu_dimensions = Rectangle{
-		center_x - GetScreenWidth() * 0.33f / 2,
-		(GetScreenHeight() - GetScreenHeight() * 0.45f) / 2,
-		GetScreenWidth() * 0.33f,
-		GetScreenHeight() * 0.45f,
-	};
-
-	constexpr float button_margin = 65.0f;
-	constexpr float button_padding = 35.0f;
-	const Rectangle menu_button_dimensions = Rectangle{
-		win_menu_dimensions.x + button_margin,
-		win_menu_dimensions.y + 4 * button_margin,
-		200.0f,
-		100.0f
-	};
-	const Rectangle next_button_dimensions = Rectangle{
-		win_menu_dimensions.x + win_menu_dimensions.width - 200.0f - button_margin,
-		win_menu_dimensions.y + 4 * button_margin,
-		200.0f,
-		100.0f
-	};
-
 	// Create text label variables
 	constexpr float title_font_size    = 55.0f;
 	constexpr float title_font_spacing = 8.0f;
@@ -52,13 +30,10 @@ LevelEnd level1()
 	const Vector2 title_label_size = MeasureTextEx(title_font, "Wi-Fi Connect", title_font_size, title_font_spacing);
 	const Font phone_font = LoadFontEx("Inconsolata.ttf", text_font_size, nullptr, 0);
 	const Font text_font = LoadFontEx("bBreakPassword.ttf", text_font_size, nullptr, 0);
-	const Vector2 win_title_size = MeasureTextEx(text_font, "You Win!", text_font_size, text_font_spacing);
 
 	constexpr Color text_color = Color{25, 37, 30, 255};
 	constexpr Color phone_text_color = Color{222, 239, 236, 255};
 	constexpr Color secondary_color = Color{191, 203, 201, 255};
-	Color menuButtonColor = text_color;
-	Color nextButtonColor = text_color;
 
 	constexpr int max_input_length = 12;
 	char input[max_input_length + 1] = "";
@@ -96,7 +71,7 @@ LevelEnd level1()
 
 		if (IsKeyPressed(KEY_ESCAPE) && !won)
 		{
-			return exit_to_menu;
+			break; // Exit to menu
 		}
 
 		// Animate fade-in
@@ -195,82 +170,17 @@ LevelEnd level1()
 
 			if (won)
 			{
-				if (CheckCollisionPointRec(GetMousePosition(), menu_button_dimensions))
+				switch (winMenu(text_font, text_font_size, text_font_spacing))
 				{
-					menuButtonColor = MAROON;
-					if (IsMouseButtonReleased(MOUSE_BUTTON_LEFT))
-					{
-						return win_and_exit_to_menu;
-					}
+					case win: UnloadFont(text_font); UnloadFont(phone_font); UnloadFont(title_font); return win;
+					case win_and_exit_to_menu: UnloadFont(text_font); UnloadFont(phone_font); UnloadFont(title_font); return win_and_exit_to_menu;
+					default: break;
 				}
-				else
-				{
-					menuButtonColor = text_color;
-				}
-
-				if (CheckCollisionPointRec(GetMousePosition(), next_button_dimensions))
-				{
-					nextButtonColor = DARKGREEN;
-					if (IsMouseButtonReleased(MOUSE_BUTTON_LEFT))
-					{
-						return win;
-					}
-				}
-				else
-				{
-					nextButtonColor = text_color;
-				}
-
-				DrawRectangle(0, 0, GetScreenWidth(), GetScreenHeight(), Color{255, 255, 255, 100});
-				DrawRectangleRec(
-					win_menu_dimensions,
-					secondary_color
-				);
-
-				DrawTextEx(
-					text_font,
-					"You Win!",
-					Vector2{center_x - win_title_size.x / 2, win_menu_dimensions.y + 100.0f},
-					text_font_size,
-					text_font_spacing,
-					text_color
-				);
-
-				// Menu button
-				DrawRectangleRoundedLinesEx(
-					menu_button_dimensions,
-					0.1f,
-					0,
-					3.0f,
-					menuButtonColor
-				);
-				DrawTextEx(
-					text_font,
-					"Menu",
-					Vector2{menu_button_dimensions.x + button_padding, menu_button_dimensions.y + button_padding},
-					text_font_size,
-					text_font_spacing,
-					menuButtonColor
-				);
-
-				// Next button
-				DrawRectangleRoundedLinesEx(
-					next_button_dimensions,
-					0.1f,
-					0,
-					3.0f,
-					nextButtonColor
-				);
-				DrawTextEx(
-					text_font,
-					"Next",
-					Vector2{next_button_dimensions.x + button_padding + 18.0f, next_button_dimensions.y + button_padding},
-					text_font_size,
-					text_font_spacing,
-					nextButtonColor
-				);
 			}
 		EndDrawing();
 	}
+	UnloadFont(title_font);
+	UnloadFont(phone_font);
+	UnloadFont(text_font);
 	return exit_to_menu;
 }
