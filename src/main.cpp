@@ -1,7 +1,5 @@
 #include "raylib.h"
 #include "intro.h"
-#include "font.h"
-#include "level_end.h"
 #include "levels.h"
 
 enum Screen
@@ -18,6 +16,10 @@ int main()
 	ChangeDirectory("resources"); // to not prefix every resource with "resources/"
 
 	// Create text label variables
+	constexpr float title_size    = 160.0f;
+	constexpr float title_spacing = 50.0f;
+	constexpr float text_size     = 100.0f;
+	constexpr float text_spacing  = 30.5f;
 	// Codepoints are null and codepointCount - 0 thus the font applies to default characters
 	const Font title_font = LoadFontEx("bBreakPassword.ttf", title_size, nullptr, 0);
 	const Font text_font  = LoadFontEx("bBreakPassword.ttf", text_size,  nullptr, 0);
@@ -37,7 +39,7 @@ int main()
 	Color quitColor = BLACK;
 
 	Screen currentScreen = after_intro;
-	int level = 0;
+	int level = 1;
 
 	float alpha = 0.0f;
 

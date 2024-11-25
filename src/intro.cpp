@@ -1,12 +1,13 @@
 #include "intro.h"
 #include "raylib.h"
-#include "font.h"
 
 void playIntro()
 {
+	constexpr float font_size = 160.0f;
+	constexpr float font_spacing = 50.0f;
 	// Codepoints are null and codepointCount - 0 so the font applies to default characters
-	const Font font = LoadFontEx("bBreakPassword.ttf", title_size, nullptr, 0);
-	Vector2 fieldSize = MeasureTextEx(font, "********", title_size, title_spacing);
+	const Font font = LoadFontEx("bBreakPassword.ttf", font_size, nullptr, 0);
+	Vector2 fieldSize = MeasureTextEx(font, "********", font_size, font_spacing);
 	// Add padding
 	constexpr float x_padding = 200.0f;
 	constexpr float y_padding = 50.0f;
@@ -53,35 +54,35 @@ void playIntro()
 
 			if (frame >= 145)
 			{
-				DrawTextEx(font, "********", password_position, title_size, title_spacing, Fade(BLACK, alpha));
+				DrawTextEx(font, "********", password_position, font_size, font_spacing, Fade(BLACK, alpha));
 			}
 			else if (frame >= 120)
 			{
-				DrawTextEx(font, "*******", password_position, title_size, title_spacing, BLACK);
+				DrawTextEx(font, "*******", password_position, font_size, font_spacing, BLACK);
 			}
 			else if (frame >= 115)
 			{
-				DrawTextEx(font, "******", password_position, title_size, title_spacing, BLACK);
+				DrawTextEx(font, "******", password_position, font_size, font_spacing, BLACK);
 			}
 			else if (frame >= 110)
 			{
-				DrawTextEx(font, "*****", password_position, title_size, title_spacing, BLACK);
+				DrawTextEx(font, "*****", password_position, font_size, font_spacing, BLACK);
 			}
 			else if (frame >= 100)
 			{
-				DrawTextEx(font, "****", password_position, title_size, title_spacing, BLACK);
+				DrawTextEx(font, "****", password_position, font_size, font_spacing, BLACK);
 			}
 			else if (frame >= 85)
 			{
-				DrawTextEx(font, "***", password_position, title_size, title_spacing, BLACK);
+				DrawTextEx(font, "***", password_position, font_size, font_spacing, BLACK);
 			}
 			else if (frame >= 75)
 			{
-				DrawTextEx(font, "**", password_position, title_size, title_spacing, BLACK);
+				DrawTextEx(font, "**", password_position, font_size, font_spacing, BLACK);
 			}
 			else if (frame >= 60)
 			{
-				DrawTextEx(font, "*", password_position, title_size, title_spacing, BLACK);
+				DrawTextEx(font, "*", password_position, font_size, font_spacing, BLACK);
 			}
 		EndDrawing();
 	}
